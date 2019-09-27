@@ -7,8 +7,18 @@ ARG gid=1000
 
 RUN addgroup --gid ${gid} ${group} && \
     adduser --system --home /home/${user} --uid ${uid} --gid ${gid} --disabled-password ${user} && \
+    dpkg --add-architecture i386 && \
     apt update && \
-    apt install -y git openssh-client apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+    apt install -y \
+      git \
+      openssh-client \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      gnupg2 \
+      software-properties-common \
+      libc6-i386 \
+      && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
     apt-get update && \
