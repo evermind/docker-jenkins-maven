@@ -7,7 +7,7 @@ ARG gid=1000
 
 RUN addgroup -g ${gid} ${group} && \
     adduser -h /home/${user} -u ${uid} -G ${group} -D ${user} && \
-    apk add --no-cache --update git openssh-client docker
+    apk add --no-cache --update git openssh-client docker libfreetype6
 
 USER ${user}
 WORKDIR /home/${user}
