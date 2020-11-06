@@ -18,6 +18,7 @@ RUN addgroup --gid ${gid} ${group} && \
       gnupg2 \
       software-properties-common \
       libc6-i386 \
+      libstdc++6 libstdc++6:i386 \
       && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
