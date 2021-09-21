@@ -1,0 +1,30 @@
+name: Publish Docker image
+on:
+  push:
+    branches:
+      - '3-jdk-8-slim'
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: evermind/jenkins-maven:3-jdk-8-slim-pre1
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USER_NAME }}
+          password: ${{ secrets.DOCKERHUB_USER_PASSWORD }}
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: evermind/jenkins-maven:3-jdk-8-slim-pre1
+          labels: ${{ steps.meta.outputs.labels }}
