@@ -11,6 +11,13 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@v1.2
+        id: queryBranch
+      - name: Get Git branch name
+        run: |-
+          echo "GIT_BRANCH_NAME = $GIT_BRANCH_NAME"
+          echo "Branch name: ${{ steps.queryBranch.outputs.git_branch_name }}"        
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
