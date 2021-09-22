@@ -1,4 +1,4 @@
-FROM maven:3-jdk-11-slim
+FROM maven:3-openjdk-17-slim
 
 ARG user=jenkins
 ARG group=jenkins
